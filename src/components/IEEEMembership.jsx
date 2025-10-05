@@ -1,58 +1,69 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 
-// Reusable animation variants
+// --- ANIMATION VARIANTS ---
 const containerVariants = {
   hidden: { opacity: 0 },
   visible: {
     opacity: 1,
-    transition: { staggerChildren: 0.2, delayChildren: 0.2 },
+    transition: { staggerChildren: 0.15, delayChildren: 0.2 },
   },
 };
 
 const itemVariants = {
-  hidden: { y: 40, opacity: 0, scale: 0.95 },
+  hidden: { y: 20, opacity: 0 },
   visible: {
-    y: 0,
     opacity: 1,
-    scale: 1,
+    y: 0,
     transition: { duration: 0.7, ease: 'easeOut' },
   },
 };
 
+// --- INLINE SVG ICON ---
+const IconCheck = ({ className }) => (
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" className={className}>
+        <polyline points="20 6 9 17 4 12"></polyline>
+    </svg>
+);
+
+// --- REUSABLE COMPONENTS ---
+const MembershipBenefit = ({ children }) => (
+    <li className="flex items-start">
+        <IconCheck className="text-ieee-blue mr-3 mt-1 h-5 w-5 flex-shrink-0" />
+        <span>{children}</span>
+    </li>
+);
+
 const IEEEMembership = () => {
   return (
-    <div className="relative py-24 px-6 md:px-20 lg:px-32 bg-[#e9f1fb] text-gray-900 overflow-hidden">
+    <div className="relative py-24 px-6 md:px-12 lg:px-24 bg-gray-50 text-gray-900 overflow-hidden font-sans">
       
-      {/* Background decorative element */}
-      {/* <div className="absolute inset-0 bg-[radial-gradient(circle_at_80%_70%,rgba(0,102,204,0.07),transparent_60%)] pointer-events-none"></div> */}
-
       {/* --- Section Header --- */}
-      <div className="text-center mb-20 relative z-10">
+      <div className="text-center mb-16 max-w-4xl mx-auto">
         <motion.h2
-          className="text-5xl font-extrabold text-gray-800 inline-block relative tracking-tight"
+          className="text-4xl md:text-5xl font-extrabold text-gray-900 inline-block relative tracking-tight pb-3"
           initial={{ opacity: 0, y: -20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
+          transition={{ duration: 0.7 }}
           viewport={{ once: true }}
         >
-          Become a <span className="text-blue-700">Member</span>
-          <motion.div
-            className="absolute bottom-[-12px] left-0 w-full h-1 bg-blue-700 rounded-full"
-            initial={{ scaleX: 0 }}
-            whileInView={{ scaleX: 1 }}
-            transition={{ duration: 0.9, ease: 'easeInOut' }}
-            viewport={{ once: true, amount: 0.8 }}
-          />
+          Become an <span className="text-ieee-blue">IEEE Member</span>
+          <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-24 h-1 bg-ieee-blue rounded-full"></span>
         </motion.h2>
-        <p className="text-gray-600 mt-6 max-w-3xl mx-auto text-lg">
+        <motion.p
+          className="text-gray-600 mt-6 text-base md:text-lg"
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          transition={{ duration: 0.7, delay: 0.2 }}
+          viewport={{ once: true }}
+        >
           Join a global community of innovators and unlock a world of resources designed to help you succeed in your academic and professional journey.
-        </p>
+        </motion.p>
       </div>
 
-      {/* --- Pricing and Membership Cards --- */}
+      {/* --- Membership Cards --- */}
       <motion.div
-        className='grid grid-cols-1 lg:grid-cols-2 gap-12 max-w-5xl mx-auto relative z-10'
+        className='grid grid-cols-1 lg:grid-cols-2 gap-8 max-w-6xl mx-auto'
         variants={containerVariants}
         initial="hidden"
         whileInView="visible"
@@ -61,36 +72,36 @@ const IEEEMembership = () => {
         {/* Card 1: Standard Student Membership */}
         <motion.div
           variants={itemVariants}
-          className="bg-white/90 backdrop-blur-sm border border-gray-200 rounded-2xl shadow-md p-8 flex flex-col"
+          className="bg-white border border-gray-200 rounded-xl shadow-lg p-8 flex flex-col"
         >
-          <h3 className="text-3xl font-bold text-gray-800 mb-4">Student Membership</h3>
-          <p className="text-5xl font-extrabold text-blue-700 mb-2">
+          <h3 className="text-2xl font-bold text-gray-900 mb-4">Student Membership</h3>
+          <p className="text-5xl font-extrabold text-ieee-blue mb-2">
             $27<span className="text-xl font-medium text-gray-500">.00 USD/year*</span>
           </p>
-          <p className="text-gray-500 mb-6 text-sm">*Price may vary based on region.</p>
-          <ul className="space-y-3 text-gray-600 text-lg flex-grow">
-            <li className="flex items-center"><span className="text-blue-600 mr-3">✔</span>IEEE Spectrum Magazine</li>
-            <li className="flex items-center"><span className="text-blue-600 mr-3">✔</span>Access to IEEE Xplore</li>
-            <li className="flex items-center"><span className="text-blue-600 mr-3">✔</span>IEEE eLearning Library</li>
-            <li className="flex items-center"><span className="text-blue-600 mr-3">✔</span>Networking Opportunities</li>
+          <p className="text-gray-500 mb-8 text-sm">*Price may vary based on region.</p>
+          <ul className="space-y-4 text-gray-700 text-base flex-grow">
+            <MembershipBenefit>IEEE Spectrum Magazine subscription</MembershipBenefit>
+            <MembershipBenefit>Full access to the IEEE Xplore Digital Library</MembershipBenefit>
+            <MembershipBenefit>Discounts on the IEEE eLearning Library</MembershipBenefit>
+            <MembershipBenefit>Global networking opportunities</MembershipBenefit>
           </ul>
         </motion.div>
 
         {/* Card 2: Society Membership */}
         <motion.div
           variants={itemVariants}
-          className="bg-white/90 backdrop-blur-sm border border-gray-200 rounded-2xl shadow-md p-8 flex flex-col"
+          className="bg-white border border-gray-200 rounded-xl shadow-lg p-8 flex flex-col"
         >
-          <h3 className="text-3xl font-bold text-gray-800 mb-4">Add Technical Societies</h3>
-          <p className="text-4xl font-extrabold text-blue-700 mb-2">
+          <h3 className="text-2xl font-bold text-gray-900 mb-4">Add Technical Societies</h3>
+          <p className="text-3xl font-extrabold text-ieee-blue mb-2">
             Enhance Your Focus
           </p>
-          <p className="text-gray-500 mb-6">Join societies dedicated to your specific fields of interest, like Computer Science, Robotics, or Power & Energy.</p>
-          <ul className="space-y-3 text-gray-600 text-lg flex-grow">
-            <li className="flex items-center"><span className="text-blue-600 mr-3">✔</span>Specialized Publications</li>
-            <li className="flex items-center"><span className="text-blue-600 mr-3">✔</span>Exclusive Conferences</li>
-            <li className="flex items-center"><span className="text-blue-600 mr-3">✔</span>Expert-led Webinars</li>
-            <li className="flex items-center"><span className="text-blue-600 mr-3">✔</span>Lower pricing for students</li>
+          <p className="text-gray-500 mb-8">Join societies dedicated to your specific fields of interest, like Computer Science, Robotics, or Power & Energy.</p>
+          <ul className="space-y-4 text-gray-700 text-base flex-grow">
+            <MembershipBenefit>Receive specialized magazines and publications</MembershipBenefit>
+            <MembershipBenefit>Access to exclusive conferences and events</MembershipBenefit>
+            <MembershipBenefit>Participate in expert-led technical webinars</MembershipBenefit>
+            <MembershipBenefit>Take advantage of lower membership pricing for students</MembershipBenefit>
           </ul>
         </motion.div>
       </motion.div>
@@ -100,21 +111,23 @@ const IEEEMembership = () => {
         className="text-center mt-20"
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8, delay: 0.5 }}
+        transition={{ duration: 0.8, delay: 0.3 }}
         viewport={{ once: true }}
       >
-        <a
+        <motion.a
           href="https://www.ieee.org/membership/join/index.html"
           target="_blank"
           rel="noopener noreferrer"
-          className="inline-block bg-blue-700 text-white font-bold text-xl py-4 px-12 rounded-full shadow-lg hover:bg-blue-800 transform hover:scale-105 transition-all duration-300 ease-in-out"
+          className="inline-block bg-cyan-500 text-gray-900 font-bold text-lg py-4 px-10 rounded-lg shadow-lg hover:bg-cyan-600 transition"
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.95 }}
         >
           Join IEEE Today
-        </a>
+        </motion.a>
       </motion.div>
-
     </div>
   );
 };
 
 export default IEEEMembership;
+

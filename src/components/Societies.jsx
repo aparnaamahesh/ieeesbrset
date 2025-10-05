@@ -1,6 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 
+// --- DATA ---
 const societies = [
   {
     name: 'Computer Society (CS)',
@@ -34,86 +35,90 @@ const societies = [
   }
 ];
 
-// Container animation
+// --- ANIMATION VARIANTS (Slightly faster for a snappier feel) ---
 const containerVariants = {
   hidden: { opacity: 0 },
   visible: {
     opacity: 1,
-    transition: { staggerChildren: 0.25, delayChildren: 0.2 },
+    transition: { staggerChildren: 0.1, delayChildren: 0.1 },
   },
 };
 
-// Card animation
 const itemVariants = {
-  hidden: { y: 40, opacity: 0, scale: 0.95 },
+  hidden: { y: 20, opacity: 0 },
   visible: {
     y: 0,
     opacity: 1,
-    scale: 1,
-    transition: { duration: 0.7, ease: 'easeOut' },
+    transition: { duration: 0.5, ease: 'easeOut' },
   },
 };
 
+// ✅ Reusable MemberCard Component
+const SocietyCard = ({ society }) => {
+  return (
+    <motion.div
+      variants={itemVariants}
+      whileHover={{ y: -6 }}
+      className="group bg-white rounded-lg overflow-hidden shadow-md hover:shadow-xl transition-all duration-300 border border-gray-200 cursor-pointer"
+    >
+      {/* ✅ Consistent Image Sizing using aspect-ratio */}
+      <div className="aspect-video overflow-hidden">
+        <img
+          src={society.image}
+          alt={society.name}
+          className="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500 ease-out"
+        />
+      </div>
+      {/* ✅ Polished UI Details: Left-aligned text */}
+      <div className="p-5 text-left">
+        <h3 className="text-xl font-bold text-gray-800 group-hover:text-ieee-blue transition-colors duration-300">
+          {society.name}
+        </h3>
+        <p className="text-gray-600 text-sm leading-relaxed mt-2">{society.description}</p>
+      </div>
+    </motion.div>
+  );
+};
+
+
 const Societies = () => {
   return (
-    // 1. UPDATED: Removed static background to reveal dynamic animated background
-    <div className="relative py-24 px-6 md:px-20 lg:px-32 bg-[#e9f1fb] text-gray-900 overflow-hidden">
+    // ✅ Professional Color Palette: Light gray background
+    <div className="relative py-24 px-6 md:px-12 lg:px-24 bg-gray-50 text-gray-900 overflow-hidden font-sans">
       
-      <div className="text-center mb-20 relative z-10">
+      <div className="text-center mb-16 max-w-4xl mx-auto">
         <motion.h2
-          className="text-5xl font-extrabold text-gray-800 inline-block relative tracking-tight"
+          className="text-4xl md:text-5xl font-extrabold text-gray-900 inline-block relative tracking-tight pb-3"
           initial={{ opacity: 0, y: -20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
+          transition={{ duration: 0.7 }}
           viewport={{ once: true }}
         >
-          Our <span className="text-blue-700">Societies</span>
-          <motion.div
-            className="absolute bottom-[-12px] left-0 w-full h-1 bg-blue-700 rounded-full"
-            initial={{ scaleX: 0 }}
-            whileInView={{ scaleX: 1 }}
-            transition={{ duration: 0.9, ease: 'easeInOut' }}
-            viewport={{ once: true, amount: 0.8 }}
-          />
+          Our Technical <span className="text-ieee-blue">Societies</span>
+          {/* ✅ Polished UI Details: Subtle, centered underline */}
+          <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-24 h-1 bg-ieee-blue rounded-full"></span>
         </motion.h2>
-        <p className="text-gray-600 mt-6 max-w-2xl mx-auto text-lg">
+        <motion.p
+          className="text-gray-600 mt-6 text-base md:text-lg"
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          transition={{ duration: 0.7, delay: 0.2 }}
+          viewport={{ once: true }}
+        >
           Explore the diverse technical communities within IEEE RSET SB, each dedicated to a specific field of interest.
-        </p>
+        </motion.p>
       </div>
 
       {/* Cards Grid */}
       <motion.div
-        className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-12 relative z-10"
+        className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto"
         variants={containerVariants}
         initial="hidden"
         whileInView="visible"
-        viewport={{ once: true, amount: 0.2 }}
+        viewport={{ once: true, amount: 0.1 }}
       >
         {societies.map((society, index) => (
-          <motion.div
-            key={index}
-            variants={itemVariants}
-            whileHover={{ y: -8, scale: 1.02 }}
-            className="group bg-white/90 backdrop-blur-sm border border-gray-200 rounded-2xl shadow-md transition-all duration-300 hover:shadow-2xl hover:border-blue-600/60 cursor-pointer overflow-hidden"
-          >
-            <div className="overflow-hidden h-60 relative">
-              <motion.img
-                src={society.image}
-                alt={society.name}
-                // 2. UPDATED: Removed grayscale effect
-                className="w-full h-full object-cover transform group-hover:scale-110 transition-all duration-700 ease-out"
-                whileHover={{ rotate: 0.5 }}
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-            </div>
-            <div className="p-6">
-              <h3 className="text-2xl font-semibold mb-3 text-gray-800 group-hover:text-blue-700 transition-colors relative inline-block">
-                {society.name}
-                <span className="absolute bottom-0 left-0 w-0 h-[2px] bg-blue-700 group-hover:w-full transition-all duration-500"></span>
-              </h3>
-              <p className="text-gray-600 text-sm leading-relaxed">{society.description}</p>
-            </div>
-          </motion.div>
+          <SocietyCard key={index} society={society} />
         ))}
       </motion.div>
     </div>

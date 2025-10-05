@@ -1,7 +1,7 @@
 import React from 'react';
-import { FiDownload, FiEye } from 'react-icons/fi';
 import { motion } from 'framer-motion';
 
+// --- Data for Newsletters ---
 const newslettersData = [
   {
     title: 'Newsletter 2024',
@@ -14,106 +14,132 @@ const newslettersData = [
     previewImage: '/Newsletters/Newsletter_2023.png',
     pdfUrl: '/Newsletters/IEEE_RSET_SB_Newsletter_2023.pdf',
     fileName: 'IEEE_RSET_SB_Newsletter_2023.pdf'
+  },
+  {
+    title: 'Newsletter 2022',
+    previewImage: '/Newsletters/Newsletter_2022.png',
+    pdfUrl: '/Newsletters/IEEE_RSET_SB_Newsletter_2022.pdf',
+    fileName: 'IEEE_RSET_SB_Newsletter_2022.pdf'
   }
 ];
 
+// --- ANIMATION VARIANTS (Faster for a snappier feel) ---
 const containerVariants = {
   hidden: { opacity: 0 },
   visible: {
     opacity: 1,
-    transition: { staggerChildren: 0.25, delayChildren: 0.2 },
+    transition: { staggerChildren: 0.15, delayChildren: 0.2 },
   },
 };
 
 const itemVariants = {
-  hidden: { y: 40, opacity: 0, scale: 0.95 },
+  hidden: { y: 20, opacity: 0, scale: 0.98 },
   visible: {
     y: 0,
     opacity: 1,
     scale: 1,
-    transition: { duration: 0.7, ease: 'easeOut' },
+    transition: { duration: 0.6, ease: 'easeOut' },
   },
 };
 
+// --- Inline SVG components ---
+const IconView = ({ className }) => (
+  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}>
+    <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+    <circle cx="12" cy="12" r="3"></circle>
+  </svg>
+);
+
+const IconDownload = ({ className }) => (
+  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}>
+    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+    <polyline points="7 10 12 15 17 10"></polyline>
+    <line x1="12" y1="15" x2="12" y2="3"></line>
+  </svg>
+);
+
+
+// --- Reusable NewsletterCard Component ---
+const NewsletterCard = ({ newsletter }) => (
+  <motion.div
+    variants={itemVariants}
+    whileHover={{ y: -6 }}
+    className="group bg-white rounded-lg overflow-hidden shadow-md hover:shadow-xl transition-all duration-300 border border-gray-200 flex flex-col"
+  >
+    <div className="aspect-[4/3] overflow-hidden">
+      <img
+        src={newsletter.previewImage}
+        alt={`Preview of ${newsletter.title}`}
+        className="w-full h-full object-cover object-top transform group-hover:scale-105 transition-transform duration-500 ease-out"
+        onError={(e) => { e.target.onerror = null; e.target.src='/Newsletters/default-preview.png' }}
+      />
+    </div>
+    <div className="p-5 text-left flex flex-col flex-grow">
+      <h3 className="text-xl font-bold text-gray-800 mb-3 flex-grow">
+        {newsletter.title}
+      </h3>
+      <div className="flex flex-col space-y-3 sm:flex-row sm:space-y-0 sm:space-x-3 mt-auto">
+        <a
+          href={newsletter.pdfUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="w-full inline-flex items-center justify-center px-4 py-2.5 bg-ieee-blue text-white font-semibold rounded-md hover:bg-opacity-90 transition-colors shadow-sm"
+        >
+          <IconView className="mr-2" />
+          View
+        </a>
+        <a
+          href={newsletter.pdfUrl}
+          download={newsletter.fileName}
+          className="w-full inline-flex items-center justify-center px-4 py-2.5 bg-gray-600 text-white font-semibold rounded-md hover:bg-gray-700 transition-colors shadow-sm"
+        >
+          <IconDownload className="mr-2" />
+          Download
+        </a>
+      </div>
+    </div>
+  </motion.div>
+);
+
 const Newsletters = () => {
   return (
-    <div className="relative py-24 px-6 md:px-20 lg:px-32 bg-[#e9f1fb] text-gray-900 overflow-hidden">
+    <div className="relative py-24 px-6 md:px-12 lg:px-24 bg-gray-50 text-gray-900 overflow-hidden font-sans">
       
-      {/* <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_30%,rgba(0,102,204,0.07),transparent_60%)] pointer-events-none"></div> */}
-
-      <div className="text-center mb-20 relative z-10">
+      {/* --- Section Header --- */}
+      <div className="text-center mb-16 max-w-4xl mx-auto">
         <motion.h2
-          className="text-5xl font-extrabold text-gray-800 inline-block relative tracking-tight"
+          className="text-4xl md:text-5xl font-extrabold text-gray-900 inline-block relative tracking-tight pb-3"
           initial={{ opacity: 0, y: -20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
+          transition={{ duration: 0.7 }}
           viewport={{ once: true }}
         >
-          Our <span className="text-blue-700">Newsletters</span>
-          {/* This underline is already fully responsive and works on all screen sizes */}
-          <motion.div
-            className="absolute bottom-[-12px] left-0 w-full h-1 bg-blue-700 rounded-full"
-            initial={{ scaleX: 0 }}
-            whileInView={{ scaleX: 1 }}
-            transition={{ duration: 0.9, ease: 'easeInOut' }}
-            viewport={{ once: true, amount: 0.8 }}
-          />
+          Our <span className="text-ieee-blue">Newsletters</span>
+          {/* ✅ UPDATED: Professional, centered underline */}
+          <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-24 h-1 bg-ieee-blue rounded-full"></span>
         </motion.h2>
-        <p className="text-gray-600 mt-6 max-w-2xl mx-auto text-lg">
+        <motion.p
+          className="text-gray-600 mt-6 text-base md:text-lg"
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          transition={{ duration: 0.7, delay: 0.2 }}
+          viewport={{ once: true }}
+        >
           Check out the latest news, events, and achievements from our Student Branch.
-        </p>
+        </motion.p>
       </div>
 
+      {/* --- Newsletters Grid --- */}
       <motion.div
-        className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-12 max-w-5xl mx-auto relative z-10"
+        // ✅ UPDATED: Grid layout to support three columns and wider max-width
+        className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto"
         variants={containerVariants}
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, amount: 0.2 }}
       >
         {newslettersData.map((newsletter, index) => (
-          <motion.div
-            key={index}
-            variants={itemVariants}
-            whileHover={{ y: -8, scale: 1.02 }}
-            className="group bg-white/90 backdrop-blur-sm border border-gray-200 rounded-2xl shadow-md transition-all duration-300 hover:shadow-2xl hover:border-blue-600/60 overflow-hidden"
-          >
-            <div className="overflow-hidden h-80 relative">
-              <motion.img
-                src={newsletter.previewImage}
-                alt={`Preview of ${newsletter.title}`}
-                // UPDATED: Removed the "grayscale" and "group-hover:grayscale-0" classes
-                className="w-full h-full object-cover object-top transform group-hover:scale-110 transition-all duration-700 ease-out"
-                onError={(e) => { e.target.onerror = null; e.target.src='/Newsletters/default-preview.png' }}
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-            </div>
-            
-            <div className="p-6">
-              <h3 className="text-2xl font-semibold mb-4 text-gray-800 group-hover:text-blue-700 transition-colors">
-                {newsletter.title}
-              </h3>
-              <div className="flex flex-col sm:flex-row space-y-3 sm:space-y-0 sm:space-x-3">
-                <a
-                  href={newsletter.pdfUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="w-full inline-flex items-center justify-center px-4 py-2 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 transition-colors shadow-sm hover:shadow-md"
-                >
-                  <FiEye className="mr-2" />
-                  View
-                </a>
-                <a
-                  href={newsletter.pdfUrl}
-                  download={newsletter.fileName}
-                  className="w-full inline-flex items-center justify-center px-4 py-2 bg-gray-600 text-white font-semibold rounded-lg hover:bg-gray-700 transition-colors shadow-sm hover:shadow-md"
-                >
-                  <FiDownload className="mr-2" />
-                  Download
-                </a>
-              </div>
-            </div>
-          </motion.div>
+          <NewsletterCard key={index} newsletter={newsletter} />
         ))}
       </motion.div>
     </div>
@@ -121,3 +147,4 @@ const Newsletters = () => {
 };
 
 export default Newsletters;
+
