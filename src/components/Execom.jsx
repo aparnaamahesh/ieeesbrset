@@ -39,7 +39,7 @@ const preloadImages = (societies) => {
 
 const societies = {
   SB: [
-    { name: "Dr. Elizabeth Rita Samuel", position: "Student Branch Counselor", img: "Dr. Elizabeth Rita Samuel.png", link: "elizabeth" },
+    { name: "Dr. Elizabeth Rita Samuel", position: "Student Branch Counselor", img: "public/Execom25/Dr. Elizabeth Rita Samuel.png", link: "elizabeth" },
     { name: "Rinza Yunus", position: "IEEE Student Branch Chair", img: "Rinza.jpg", link: "rinza" },
     { name: "Alias Eldo", position: "IEEE Student Branch Vice Chair", img: "AliasEldo.jpg", link: "alias" },
     { name: "Amelin Alexander Rathappillil", position: "Secretary", img: "amelin alexander.jpg", link: "amelin" },
@@ -59,42 +59,42 @@ const societies = {
     { name: "Abhishek lype", position: "Utility Lead", img: "Abhishek.jpg", link: "abhishek" },
   ],
   CS: [
-    { name: "Ms. Anu Maria Joykutty", position: "Chapter Advisor", img: "Ms. Anu Maria Joykutty.png", link: "anu" },
+    { name: "Ms. Anu Maria Joykutty", position: "Chapter Advisor", img: "public/Execom25/Ms. Anu Maria Joykutty.png", link: "anu" },
     { name: "Navaneeth K.B", position: "Chair", img: "Navaneeth K.B.jpg", link: "navaneeth" },
     { name: "Richard Sabu", position: "Vice Chair", img: "Richard 1.jpg", link: "richard" },
     { name: "Nihala Nizamudeen", position: "Secretary", img: "NIHALA NIZAMUDEEN .HEIC", link: "nihala" },
     { name: "Punya D", position: "Treasurer", img: "Punya D.JPG", link: "punya" },
   ],
   IAS: [
-    { name: "Nitheesh Kurian", position: "IAS Chapter Advisor", img: "Nitheesh Kurian.png", link: "nitheesh" },
+    { name: "Nitheesh Kurian", position: "IAS Chapter Advisor", img: "public/Execom25/Nitheesh Kurian.png", link: "nitheesh" },
     { name: "Namitha Mariam John", position: "Chair", img: "Namitha Mariam John.jpeg", link: "namitha" },
     { name: "Darsan Dileep", position: "Vice Chair", img: "Darsan Dileep.JPG", link: "darsan" },
     { name: "Shreya M", position: "Secretary", img: "Shreya M.JPG", link: "shreya" },
     { name: "Nia Jobby", position: "Treasurer", img: "Nia Jobby .jpg", link: "nia" },
   ],
   PES: [
-    { name: "Ginnes K John", position: "PES Chapter Advisor", img: "Ginnes K John.png", link: "ginnes" },
+    { name: "Ginnes K John", position: "PES Chapter Advisor", img: "public/Execom25/Ginnes K John.png", link: "ginnes" },
     { name: "Diya Sarah", position: "Chair", img: "Diya Sarah.jpg", link: "diya" },
     { name: "Ashish John Binu", position: "Vice Chair", img: "Ashish John Binu.jpg", link: "ashish" },
     { name: "Neha Biju", position: "Secretary", img: "Neha Biju.JPEG", link: "neha" },
     { name: "Joel John Thumpayil", position: "Treasurer", img: "Joel John Thumpayil.jpg", link: "joel" },
   ],
   RAS: [
-    { name: "Dr. Elizabeth Rita Samuel", position: "RAS Chapter Advisor", img: "Dr. Elizabeth Rita Samuel.png", link: "elizabeth" },
+    { name: "Dr. Elizabeth Rita Samuel", position: "RAS Chapter Advisor", img: "public/Execom25/Dr. Elizabeth Rita Samuel.png", link: "elizabeth" },
     { name: "Abner Sebastian Lopez", position: "Chair", img: "Abner.jpg", link: "abner" },
     { name: "Akul Prasanth", position: "Vice Chair", img: "Akul Prasanth .jpg", link: "akul" },
     { name: "Adheetha krishnaja", position: "Secretary", img: "Adheetha krishnaja .jpg", link: "adheetha" },
     { name: "Milee B Kokkatt", position: "Treasurer", img: "Milee.jpg", link: "milee" },
   ],
   SPS: [
-    { name: "Seema Safar", position: "SPS Chapter Advisor", img: "Seema Safar.png", link: "seema" },
+    { name: "Seema Safar", position: "SPS Chapter Advisor", img: "public/Execom25/Seema Safar.png", link: "seema" },
     { name: "Jeremy Simon Moncey", position: "Chair", img: "Jeremy.jpg", link: "jeremy" },
     { name: "Jenet Joseph", position: "Vice Chair", img: "Jenet Joseph.jpg", link: "jenet" },
     { name: "Keerthana S", position: "Secretary", img: "Keerthana.jpg", link: "keerthana" },
     { name: "Pooja S Nair", position: "Treasurer", img: "Pooja.jpg", link: "pooja" },
   ],
   WIE: [
-    { name: "Dr. Elizabeth Rita Samuel", position: "WIE Chapter Advisor", img: "Dr. Elizabeth Rita Samuel.png", link: "elizabeth" },
+    { name: "Dr. Elizabeth Rita Samuel", position: "WIE Chapter Advisor", img: "public/Execom25/Dr. Elizabeth Rita Samuel.png", link: "elizabeth" },
     { name: "Sreepriya S", position: "Chair", img: "Sreepriya.jpg", link: "sreepriya" },
     { name: "Anagha N Nath", position: "Vice Chair", img: "Anagha N Nath.jpg", link: "anagha" },
     { name: "Neha R Jacob", position: "Secretary", img: "Neha R Jacob.jpg", link: "nehar" },
