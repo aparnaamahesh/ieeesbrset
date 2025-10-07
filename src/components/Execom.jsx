@@ -62,7 +62,7 @@ const societies = {
     { name: "Ms. Anu Maria Joykutty", position: "Chapter Advisor", img: "Ms. Anu Maria Joykutty.png", link: "anu" },
     { name: "Navaneeth K.B", position: "Chair", img: "Navaneeth K.B.jpg", link: "navaneeth" },
     { name: "Richard Sabu", position: "Vice Chair", img: "Richard 1.jpg", link: "richard" },
-    { name: "Nihala Nizamudeen", position: "Secretary", img: "Nihala.jpg", link: "nihala" },
+    { name: "Nihala Nizamudeen", position: "Secretary", img: "NIHALA NIZAMUDEEN.png", link: "nihala" },
     { name: "Punya D", position: "Treasurer", img: "Punya D.JPG", link: "punya" },
   ],
   IAS: [
@@ -73,7 +73,7 @@ const societies = {
     { name: "Nia Jobby", position: "Treasurer", img: "Nia Jobby .jpg", link: "nia" },
   ],
   PES: [
-    { name: "Ginnes K John", position: "PES Chapter Advisor", img: "public/Execom25/Ginnes K John.png", link: "ginnes" },
+    { name: "Ginnes K John", position: "PES Chapter Advisor", img: "Ginnes K John.png", link: "ginnes" },
     { name: "Diya Sarah", position: "Chair", img: "Diya Sarah.jpg", link: "diya" },
     { name: "Ashish John Binu", position: "Vice Chair", img: "Ashish John Binu.jpg", link: "ashish" },
     { name: "Neha Biju", position: "Secretary", img: "Neha Biju.JPEG", link: "neha" },
