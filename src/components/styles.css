@@ -1,0 +1,155 @@
+/* Import the 'Inter' font */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+
+/* Tailwind base setup */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+/* === Global Styles === */
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: #f8fbff;
+  color: #1f2937;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #e9f1fb;
+}
+::-webkit-scrollbar-thumb {
+  background: #00629B; /* IEEE Blue */
+  border-radius: 10px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #004C7A; /* Darker IEEE Blue */
+}
+
+/* Custom Text Selection Color */
+::selection {
+  background-color: #00629B;
+  color: #ffffff;
+}
+
+
+/* === Reusable Component Styles === */
+
+/* --- Unified Section Title Styling --- */
+/* For all main page headings (h2) */
+.section-title {
+  @apply text-3xl font-bold text-gray-900 tracking-tight inline-block relative pb-3 md:text-4xl;
+}
+
+/* For the animated underline on main titles */
+.title-underline {
+  @apply h-1 rounded-full;
+  background-color: #00629B; /* IEEE Blue */
+}
+
+/* For smaller sub-headings (h3) */
+.section-subtitle {
+  @apply text-2xl font-bold text-gray-800 inline-block relative pb-2;
+}
+
+/* For the static underline on sub-headings */
+.subtitle-underline {
+  @apply w-12 h-[3px] rounded-full;
+  background-color: #00629B; /* IEEE Blue */
+}
+
+
+/* --- Unified Card Styling --- */
+.member-card {
+  @apply cursor-pointer overflow-hidden rounded-lg bg-white shadow-md border border-gray-200 transition-all duration-300;
+}
+.member-card:hover {
+  @apply shadow-xl;
+}
+.member-card-image-wrapper {
+  @apply aspect-[4/5] overflow-hidden;
+}
+.member-card-image {
+  @apply w-full h-full object-cover object-top transition-transform duration-500 ease-out;
+}
+.member-card:hover .member-card-image {
+  @apply scale-105;
+}
+.member-card-content {
+  @apply p-4 text-left border-t border-gray-100;
+}
+.member-card-name {
+  @apply text-base font-bold text-gray-800 truncate;
+}
+.member-card-position {
+  @apply text-sm font-medium mt-1;
+  color: #00629B; /* IEEE Blue */
+}
+
+/* Performance hint for animated cards (like on the Events page) */
+.event-card {
+  will-change: transform;
+}
+
+
+/* === Page Layouts === */
+
+/* --- Hero Banner (Used on all pages) --- */
+.hero-banner {
+  @apply relative h-[450px] w-full flex items-center justify-center text-center px-4;
+}
+.hero-banner-bg {
+  @apply absolute inset-0 w-full h-full object-cover;
+}
+.hero-banner-overlay {
+  @apply absolute inset-0 bg-black/60;
+}
+.hero-banner-content {
+  @apply relative z-10;
+}
+.hero-title {
+  @apply text-white text-4xl font-extrabold tracking-tight md:text-6xl;
+}
+.hero-title-accent {
+  @apply text-cyan-400;
+}
+.hero-subtitle {
+  @apply text-gray-200 mt-4 text-base max-w-2xl mx-auto md:text-lg;
+}
+
+/* --- Main Content Area (Used on all pages) --- */
+.main-content {
+  @apply py-20 px-6 max-w-7xl mx-auto md:px-12 lg:px-24;
+}
+
+/* --- Section Layout (Used on all pages) --- */
+.page-section {
+  @apply mb-20;
+}
+
+.section-header {
+  @apply text-center mb-12;
+}
+
+/* --- Grid Layouts --- */
+.member-grid {
+  @apply grid grid-cols-1 gap-8 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4;
+}
+
+.event-grid-large {
+  @apply grid grid-cols-1 md:grid-cols-2 gap-8;
+}
+
+.event-grid-small {
+  @apply grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8;
+}

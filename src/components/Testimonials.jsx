@@ -5,14 +5,14 @@ const testimonialsData = [
   {
     name: "ER. A SUHAIR",
     title: "Chair IEEE PES Kerala Chapter",
-    image: "/testimonials/suhair.jpg",
+    image: "public/Testimonial/suhair.png",
     alt: "Er. A Suhair",
     text: `I am happy to endorse that IEEE PES Student Branch of RSET has been quite active from its inception and has been organizing quality events and won recognition. I hope they will continue to do the good work and will remain the pride of the IEEE Student community in the years to come. Wishing them all the very best.`,
   },
   {
     name: "DR. BIJUNA KUNJU K",
     title: "Professor and Head, DEE TKMCE, Kollam",
-    image: "/testimonials/bijuna.jpg",
+    image: "public/Testimonial/bijuna.png",
     alt: "Dr. Bijuna Kunju K",
     text: `It is indeed a very happy feeling to write about the IAS SB Chapter of RSET. Being the Chair of IA/IE/PELS Joint Chapter Kerala, I had the very rare opportunity to work together with two volunteers of RSET, Eldho and Nivetha. I do congratulate the SB Chapter of RSET for moulding these volunteers as the best volunteers of the Section. All the best in all your future endeavours also. With the SB under the control of Nivetha, I am sure it will reap success after success.`,
   },

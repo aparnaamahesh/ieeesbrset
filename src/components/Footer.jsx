@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Link } from 'react-router-dom'; // Using Link for internal navigation
+import { Link } from 'react-router-dom';
 
 // --- ANIMATION VARIANTS ---
 const containerVariants = {
@@ -20,18 +20,31 @@ const itemVariants = {
   },
 };
 
-// --- Reusable NavLink Component ---
-const FooterLink = ({ to, children }) => (
+// --- ✅ UPDATED Reusable NavLink Component ---
+// This component now intelligently switches between <Link> for page navigation
+// and <a> for same-page anchor links.
+const FooterLink = ({ to, children }) => {
+  const isAnchorLink = to.startsWith('#');
+
+  // Common classes for both link types
+  const linkClasses = "relative w-fit block hover:text-white transition-colors duration-300 group";
+
+  return (
     <motion.li variants={itemVariants}>
-        <Link 
-            to={to} 
-            className="relative w-fit block hover:text-white transition-colors duration-300 group"
-        >
-            <span>{children}</span>
-            <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-cyan-400 transition-all duration-300 group-hover:w-full"></span>
+      {isAnchorLink ? (
+        <a href={to} className={linkClasses}>
+          <span>{children}</span>
+          <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-cyan-400 transition-all duration-300 group-hover:w-full"></span>
+        </a>
+      ) : (
+        <Link to={to} className={linkClasses}>
+          <span>{children}</span>
+          <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-cyan-400 transition-all duration-300 group-hover:w-full"></span>
         </Link>
+      )}
     </motion.li>
-);
+  );
+};
 
 
 const Footer = () => {
@@ -72,11 +85,13 @@ const Footer = () => {
               Quick Links
               <span className="absolute left-0 -bottom-1.5 w-10 h-0.5 bg-ieee-blue rounded-full"></span>
             </h3>
+            {/* ✅ UPDATED Links to use anchor paths */}
             <ul className="flex flex-col gap-3 text-gray-400">
-                <FooterLink to="/about">About Us</FooterLink>
+                <FooterLink to="#about">About Us</FooterLink>
                 <FooterLink to="/events">Events</FooterLink>
                 <FooterLink to="/execom">Execom</FooterLink>
-                <FooterLink to="/contact">Contact</FooterLink>
+                <FooterLink to="#gallery">Gallery</FooterLink>
+                <FooterLink to="#contact">Contact</FooterLink>
             </ul>
           </motion.div>
 
@@ -84,7 +99,7 @@ const Footer = () => {
           <motion.div variants={itemVariants}>
             <h3 className="text-white text-lg font-semibold mb-4 relative">
               Stay Connected
-               <span className="absolute left-0 -bottom-1.5 w-10 h-0.5 bg-ieee-blue rounded-full"></span>
+              <span className="absolute left-0 -bottom-1.5 w-10 h-0.5 bg-ieee-blue rounded-full"></span>
             </h3>
             <p className="text-gray-400 mb-4 max-w-xs text-sm">
               Get the latest news and updates from our SB.
@@ -108,11 +123,11 @@ const Footer = () => {
 
         {/* Divider & Copyright */}
         <motion.div
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            transition={{ duration: 0.7, delay: 0.4 }}
-            viewport={{ once: true }}
-            className="border-t border-gray-800 pt-6 mt-16 text-center text-gray-500 text-sm"
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          transition={{ duration: 0.7, delay: 0.4 }}
+          viewport={{ once: true }}
+          className="border-t border-gray-800 pt-6 mt-16 text-center text-gray-500 text-sm"
         >
           © {new Date().getFullYear()} IEEE RSET SB. All Rights Reserved.
         </motion.div>
@@ -122,4 +137,3 @@ const Footer = () => {
 };
 
 export default Footer;
-

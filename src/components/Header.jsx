@@ -81,10 +81,21 @@ const Header = () => {
             variants={titleVariants}
             className='text-4xl sm:text-6xl md:text-7xl font-extrabold max-w-5xl mx-auto leading-tight tracking-tight drop-shadow-md'
           >
-            {title.split("").map((letter, index) => (
-              <motion.span key={index} variants={letterVariant} className="inline-block">
-                {letter === " " ? "\u00A0" : letter}
-              </motion.span>
+            {title.split(" ").map((word, i) => (
+              // This wrapper span treats each word as a single layout unit.
+              // `whitespace-nowrap` prevents the word itself from breaking.
+              // A margin-right (`mr-4`) is added to create space between words.
+              <span key={i} className="inline-block whitespace-nowrap mr-4">
+                {word.split("").map((letter, j) => (
+                  <motion.span
+                    key={j}
+                    variants={letterVariant}
+                    className="inline-block" // Ensures letters stay together
+                  >
+                    {letter}
+                  </motion.span>
+                ))}
+              </span>
             ))}
           </motion.h1>
 
@@ -120,7 +131,7 @@ const Header = () => {
         </a>
 
         {/* Conditionally rendered Announcement Bar */}
-        <AnimatePresence>
+        {/* <AnimatePresence>
           {!scrolled && (
             <motion.div
               className="absolute bottom-0 w-full bg-ieee-blue text-white text-center py-2.5 z-20"
@@ -135,7 +146,7 @@ const Header = () => {
               </a>
             </motion.div>
           )}
-        </AnimatePresence>
+        </AnimatePresence> */}
       </div>
     </header>
   );
