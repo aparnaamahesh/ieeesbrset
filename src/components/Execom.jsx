@@ -1,25 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 
-const containerVariants = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: { staggerChildren: 0.08, delayChildren: 0.2 },
-  },
-};
-
-const itemVariants = {
-  hidden: { y: 30, opacity: 0, scale: 0.97 },
-  visible: {
-    y: 0,
-    opacity: 1,
-    scale: 1,
-    transition: { duration: 0.5, ease: "easeOut" },
-  },
-};
-
+// --- DATA (Unchanged) ---
 const societyNames = {
   SB: "Student Branch",
   CS: "Computer Society",
@@ -30,19 +13,12 @@ const societyNames = {
   WIE: "Women in Engineering Affinity Group",
 };
 
-const preloadImages = (societies) => {
-  Object.values(societies).flat().forEach((m) => {
-    const img = new Image();
-    img.src = `/Execom25/${m.img}`;
-  });
-};
-
 const societies = {
   SB: [
     { name: "Dr. Elizabeth Rita Samuel", position: "Student Branch Counselor", img: "Dr. Elizabeth Rita Samuel.png", link: "elizabeth" },
     { name: "Rinza Yunus", position: "IEEE Student Branch Chair", img: "Rinza.jpg", link: "rinza" },
     { name: "Alias Eldo", position: "IEEE Student Branch Vice Chair", img: "AliasEldo.jpg", link: "alias" },
-    { name: "Amelin Alexander Rathappillil", position: "Secretary", img: "amelin alexander.jpg", link: "amelin" },
+    { name: "Amelin Alexander Rathappillil", position: "Secretary", img: "Amelin.jpg", link: "amelin" },
     { name: "Athira Ajay", position: "Treasurer", img: "athira ajay.jpg", link: "athira" },
     { name: "Jala Vishwa Keerthi", position: "Technical Coordinator", img: "jala vishwa keerthi.png", link: "jala" },
     { name: "Adriel Bobby", position: "Electronic Communications Coordinator", img: "Adriel Bobby.jpg", link: "adriel" },
@@ -56,7 +32,6 @@ const societies = {
     { name: "Abhinav s", position: "Design Lead", img: "Sabharish P V.jpg", link: "abhinav" },
     { name: "Sabharish PV", position: "Design Lead", img: "Sabharish P V.jpg", link: "sabharish" },
     { name: "Devamanas S", position: "Media Lead", img: "Devamanas S.JPG", link: "devamanas" },
-    
   ],
   CS: [
     { name: "Ms. Anu Maria Joykutty", position: "Chapter Advisor", img: "Ms. Anu Maria Joykutty.png", link: "anu" },
@@ -102,6 +77,56 @@ const societies = {
   ],
 };
 
+// --- UTILITY ---
+const preloadImages = (societies) => {
+  Object.values(societies).flat().forEach((m) => {
+    const img = new Image();
+    img.src = `/Execom25/${m.img}`;
+  });
+};
+
+// --- ANIMATION VARIANTS ---
+const containerVariants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: { staggerChildren: 0.05, delayChildren: 0.1 },
+  },
+};
+
+const itemVariants = {
+  hidden: { y: 20, opacity: 0 },
+  visible: {
+    y: 0,
+    opacity: 1,
+    transition: { duration: 0.5, ease: "easeOut" },
+  },
+};
+
+// --- Reusable MemberCard Component ---
+const MemberCard = ({ member, onClick }) => (
+  <motion.div
+    variants={itemVariants}
+    whileHover={{ y: -5 }}
+    className="member-card group" // ✅ CORRECTED: 'group' class is here
+    onClick={onClick}
+  >
+    <div className="member-card-image-wrapper">
+      <img
+        loading="lazy"
+        src={`/Execom25/${member.img}`}
+        alt={member.name}
+        className="member-card-image"
+      />
+    </div>
+    <div className="member-card-content">
+      <h5 className="member-card-name">{member.name}</h5>
+      <p className="member-card-position">{member.position}</p>
+    </div>
+  </motion.div>
+);
+
+// --- Main Execom Page Component ---
 const Execom = () => {
   const navigate = useNavigate();
 
@@ -114,93 +139,70 @@ const Execom = () => {
   };
 
   return (
-    <div className="relative py-24 px-6 md:px-20 lg:px-32 bg-[#e9f1fb] text-gray-900 overflow-hidden">
-      <div className="relative w-screen h-[400px] -mx-6 md:-mx-20 lg:-mx-32 -mt-24 mb-24 overflow-hidden">
+    <div className="execom-page">
+      {/* --- HERO BANNER --- */}
+      <header className="hero-banner">
         <img
           src="/banner2.JPG"
           alt="Execom Banner"
-          className="absolute inset-0 w-full h-full object-cover"
+          className="hero-banner-bg"
         />
-        <div className="absolute inset-0 bg-black/70" />
-        <div className="relative z-10 flex flex-col items-center justify-center h-full text-center px-4">
+        <div className="hero-banner-overlay" />
+        <div className="hero-banner-content">
           <motion.h1
-            className="text-white text-5xl md:text-6xl font-extrabold drop-shadow-lg tracking-tight"
+            className="hero-title"
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
+            transition={{ duration: 0.7 }}
           >
-            Meet Our <span className="text-blue-700">Executive Committee</span>
+            Executive Committee <span className="hero-title-accent">2025</span>
           </motion.h1>
           <motion.p
-            className="text-gray-300 mt-4 text-lg max-w-2xl"
+            className="hero-subtitle"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
+            transition={{ duration: 0.7, delay: 0.2 }}
           >
-            The dedicated team driving innovation and excellence at IEEE RSET SB
-            for the 2025 tenure.
+            Meet the dedicated team driving innovation and excellence at IEEE RSET SB.
           </motion.p>
         </div>
-      </div>
+      </header>
 
-      {Object.entries(societies).map(([societyKey, members]) => (
-        <div key={societyKey} className="mb-24">
-          <div className="text-center mb-16">
-            <motion.h2
-              className="text-4xl font-extrabold text-gray-800 inline-block relative tracking-tight"
-              initial={{ opacity: 0, y: -20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.7 }}
-              viewport={{ once: true }}
-            >
-              {societyNames[societyKey]}
-              <motion.div
-                className="absolute bottom-[-12px] left-0 w-full h-1 bg-blue-700 rounded-full"
-                initial={{ scaleX: 0 }}
-                whileInView={{ scaleX: 1 }}
-                transition={{ duration: 0.8 }}
+      {/* --- MAIN CONTENT --- */}
+      <main className="main-content">
+        {Object.entries(societies).map(([societyKey, members]) => (
+          <section key={societyKey} className="society-section">
+            <div className="society-header">
+              <motion.h2
+                className="society-title"
+                initial={{ opacity: 0, y: -20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6 }}
                 viewport={{ once: true }}
-              />
-            </motion.h2>
-          </div>
-
-          <motion.div
-            className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-12"
-            variants={containerVariants}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, amount: 0.15 }}
-          >
-            {members.map((member, i) => (
-              <motion.div
-                key={i}
-                variants={itemVariants}
-                whileHover={{ y: -8, scale: 1.02 }}
-                className="group bg-white/90 backdrop-blur-sm border border-gray-200 rounded-2xl shadow-md hover:shadow-2xl hover:border-blue-600/60 transition-all duration-300 overflow-hidden cursor-pointer"
-                onClick={() => handleRedirect(member.link)}
               >
-                <div className="overflow-hidden h-80 relative min-h-[320px]">
-                  <img
-                    loading="lazy"
-                    src={`/Execom25/${member.img}`}
-                    alt={member.name}
-                    className="w-full h-full object-cover object-top transform group-hover:scale-110 transition-all duration-700 ease-out"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                </div>
-                <div className="p-5 text-center">
-                  <h5 className="text-md font-bold text-gray-800 group-hover:text-blue-700 transition-colors leading-tight truncate">
-                    {member.name}
-                  </h5>
-                  <p className="text-xs text-gray-500 mt-1">
-                    {member.position}
-                  </p>
-                </div>
-              </motion.div>
-            ))}
-          </motion.div>
-        </div>
-      ))}
+                {societyNames[societyKey]}
+                <span className="society-title-underline"></span>
+              </motion.h2>
+            </div>
+
+            <motion.div
+              className="member-grid"
+              variants={containerVariants}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, amount: 0.1 }}
+            >
+              {members.map((member, i) => (
+                <MemberCard
+                  key={`${societyKey}-${i}`}
+                  member={member}
+                  onClick={() => handleRedirect(member.link)}
+                />
+              ))}
+            </motion.div>
+          </section>
+        ))}
+      </main>
     </div>
   );
 };

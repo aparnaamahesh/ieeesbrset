@@ -18,102 +18,96 @@ const testimonialsData = [
   },
 ];
 
-// 1. Updated animation variants to be consistent with other pages
+// Consistent animation variants
 const containerVariants = {
   hidden: { opacity: 0 },
   visible: {
     opacity: 1,
-    transition: { staggerChildren: 0.25, delayChildren: 0.2 },
+    transition: { staggerChildren: 0.2, delayChildren: 0.2 },
   },
 };
 
 const itemVariants = {
-  hidden: { y: 40, opacity: 0, scale: 0.95 },
+  hidden: { y: 20, opacity: 0 },
   visible: {
     y: 0,
     opacity: 1,
-    scale: 1,
-    transition: { duration: 0.7, ease: "easeOut" },
+    transition: { duration: 0.6, ease: "easeOut" },
   },
 };
 
+// Reusable TestimonialCard Component
+const TestimonialCard = ({ testimonial }) => (
+    <motion.div
+        variants={itemVariants}
+        whileHover={{ y: -8 }}
+        className="relative group bg-white rounded-lg shadow-md hover:shadow-xl transition-all duration-300 border border-gray-200 p-8 pb-24"
+    >
+        {/* Quote Icon */}
+        <motion.div
+            className="text-6xl text-ieee-blue/10 mb-4 absolute top-4 left-4"
+            initial={{ opacity: 0, rotate: -15 }}
+            whileInView={{ opacity: 1, rotate: 0 }}
+            transition={{ duration: 0.7, delay: 0.2 }}
+            viewport={{ once: true }}
+        >
+            ❝
+        </motion.div>
+
+        {/* Text */}
+        <p className="text-base leading-relaxed text-gray-700 italic relative z-10">
+            {testimonial.text}
+        </p>
+
+        {/* Author Section */}
+        <div className="absolute -bottom-12 left-1/2 -translate-x-1/2 flex flex-col items-center gap-3 w-full">
+            <motion.img
+                src={testimonial.image}
+                alt={testimonial.alt}
+                className="w-20 h-20 rounded-full object-cover border-4 border-white shadow-lg"
+            />
+            <div className="text-center bg-white px-4 py-1 rounded-lg">
+                <p className="font-bold text-ieee-blue tracking-wide text-sm">
+                    {testimonial.name}
+                </p>
+                <p className="text-gray-500 text-xs">{testimonial.title}</p>
+            </div>
+        </div>
+    </motion.div>
+);
+
+
 const Testimonials = () => {
   return (
-    // 2. Applied the standard page background, padding, and layout
     <section
-      className="relative py-24 px-6 md:px-20 lg:px-32 bg-[#e9f1fb] text-gray-900"
-      id="Testimonials"
+      className="relative py-24 px-6 md:px-12 lg:px-24 bg-gray-50 text-gray-900 overflow-hidden font-sans"
+      id="testimonials"
     >
-      {/* 3. Added the consistent radial background glow */}
-      {/* <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_30%,rgba(0,102,204,0.07),transparent_60%)] pointer-events-none"></div> */}
-
-      {/* 4. Updated the header to match the site-wide animated style */}
-      <div className="text-center mb-28 relative z-10">
+      
+      {/* Section Header */}
+      <div className="text-center mb-24 max-w-4xl mx-auto">
         <motion.h2
-          className="text-5xl font-extrabold text-gray-800 inline-block relative tracking-tight"
+          className="text-4xl md:text-5xl font-extrabold text-gray-900 inline-block relative tracking-tight pb-3"
           initial={{ opacity: 0, y: -20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
+          transition={{ duration: 0.7 }}
           viewport={{ once: true }}
         >
-          Expert <span className="text-blue-700">Testimonials</span>
-          <motion.div
-            className="absolute bottom-[-12px] left-0 w-full h-1 bg-blue-700 rounded-full"
-            initial={{ scaleX: 0 }}
-            whileInView={{ scaleX: 1 }}
-            transition={{ duration: 0.9, ease: "easeInOut" }}
-            viewport={{ once: true, amount: 0.8 }}
-          />
+          Words From Our <span className="text-ieee-blue">Mentors</span>
+          <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-24 h-1 bg-ieee-blue rounded-full"></span>
         </motion.h2>
       </div>
 
       {/* Testimonials Grid */}
       <motion.div
-        className="grid grid-cols-1 lg:grid-cols-2 gap-24 relative z-10"
+        className="grid grid-cols-1 lg:grid-cols-2 gap-x-12 gap-y-24 max-w-5xl mx-auto"
         variants={containerVariants}
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, amount: 0.2 }}
       >
         {testimonialsData.map((testimonial, index) => (
-          // 5. Restyled the card container, preserving the unique author layout
-          <motion.div
-            key={index}
-            variants={itemVariants}
-            whileHover={{ y: -8, scale: 1.02 }}
-            className="relative group bg-white/90 backdrop-blur-sm border border-gray-200 rounded-2xl shadow-md transition-all duration-300 hover:shadow-2xl hover:border-blue-600/60 p-10 pb-20"
-          >
-            {/* Quote Icon */}
-            <motion.div
-              className="text-7xl text-blue-700/20 mb-4"
-              initial={{ opacity: 0, rotate: -20 }}
-              whileInView={{ opacity: 1, rotate: 0 }}
-              transition={{ duration: 0.8, delay: 0.2 }}
-              viewport={{ once: true }}
-            >
-              ❝
-            </motion.div>
-
-            {/* Text */}
-            <p className="text-lg leading-relaxed text-gray-700 italic">
-              {testimonial.text}
-            </p>
-
-            {/* Author Section - preserved the hanging layout */}
-            <div className="absolute -bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-4 w-full">
-              <motion.img
-                src={testimonial.image}
-                alt={testimonial.alt}
-                className="w-24 h-24 rounded-full object-cover border-4 border-blue-700 shadow-lg group-hover:scale-110 transition-transform duration-500"
-              />
-              <div className="text-center">
-                <p className="font-bold text-blue-700 uppercase tracking-wide text-md">
-                  {testimonial.name}
-                </p>
-                <p className="text-gray-500 text-sm">{testimonial.title}</p>
-              </div>
-            </div>
-          </motion.div>
+          <TestimonialCard key={index} testimonial={testimonial} />
         ))}
       </motion.div>
     </section>
@@ -121,3 +115,4 @@ const Testimonials = () => {
 };
 
 export default Testimonials;
+

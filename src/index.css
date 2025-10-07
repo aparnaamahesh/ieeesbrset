@@ -68,3 +68,87 @@ body {
 .small { grid-row: span 1; grid-column: span 1; }
 .medium { grid-row: span 2; grid-column: span 2; }
 .large { grid-row: span 3; grid-column: span 3; }
+
+/* === EXECOM PAGE STYLES === */
+
+/* -- Page Container -- */
+.execom-page {
+  /* This class is on the root div */
+}
+
+/* -- Hero Banner Section -- */
+.hero-banner {
+  @apply relative h-[450px] w-full flex items-center justify-center text-center px-4;
+}
+.hero-banner-bg {
+  @apply absolute inset-0 w-full h-full object-cover;
+}
+.hero-banner-overlay {
+  @apply absolute inset-0 bg-black/60;
+}
+.hero-banner-content {
+  @apply relative z-10;
+}
+.hero-title {
+  @apply text-white text-4xl font-extrabold tracking-tight md:text-6xl;
+}
+.hero-title-accent {
+  @apply text-cyan-400; /* A nice bright accent color */
+}
+.hero-subtitle {
+  @apply text-gray-200 mt-4 text-base max-w-2xl mx-auto md:text-lg;
+}
+
+/* -- Main Content Area -- */
+.main-content {
+  @apply py-20 px-6 max-w-7xl mx-auto md:px-12 lg:px-24;
+}
+
+/* -- Society Section -- */
+.society-section {
+  @apply mb-20;
+}
+.society-header {
+  @apply text-center mb-12;
+}
+.society-title {
+  @apply text-3xl font-bold text-gray-900 tracking-tight inline-block relative pb-3 md:text-4xl;
+}
+.society-title-underline {
+  @apply absolute bottom-0 left-1/2 -translate-x-1/2 w-24 h-1 rounded-full;
+  background-color: #00629B; /* IEEE Blue from your CSS */
+}
+
+/* -- Member Grid Layout -- */
+.member-grid {
+  @apply grid grid-cols-1 gap-8 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4;
+}
+
+/* -- Member Card Styling -- */
+.member-card {
+  /* ✅ CORRECTED: 'group' has been removed from this @apply rule */
+  @apply cursor-pointer overflow-hidden rounded-lg bg-white shadow-md border border-gray-200 transition-all duration-300;
+}
+.member-card:hover {
+  @apply shadow-xl;
+}
+.member-card-image-wrapper {
+  /* This creates the 4:5 aspect ratio for a professional portrait look */
+  @apply aspect-[4/5] overflow-hidden;
+}
+.member-card-image {
+  @apply w-full h-full object-cover object-top transform transition-transform duration-500 ease-out;
+}
+.member-card:hover .member-card-image {
+  @apply scale-105; /* Zoom effect on hover */
+}
+.member-card-content {
+  @apply p-4 text-left border-t border-gray-100;
+}
+.member-card-name {
+  @apply text-base font-bold text-gray-800 truncate;
+}
+.member-card-position {
+  @apply text-sm font-medium mt-1;
+  color: #00629B; /* IEEE Blue from your CSS */
+}

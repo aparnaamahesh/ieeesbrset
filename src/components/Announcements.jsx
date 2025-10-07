@@ -20,90 +20,101 @@ const studentImages = [
   '/StudentAwards/sa4.jpeg',
 ];
 
-// --- Animation Variants ---
-
-// For staggering the grid items
+// --- ANIMATION VARIANTS (Faster for a snappier feel) ---
 const containerVariants = {
   hidden: { opacity: 0 },
   visible: {
     opacity: 1,
-    transition: { staggerChildren: 0.15, delayChildren: 0.2 },
+    transition: { staggerChildren: 0.1, delayChildren: 0.1 },
   },
 };
 
-// For individual grid items
 const itemVariants = {
-  hidden: { y: 30, opacity: 0, scale: 0.95 },
+  hidden: { y: 20, opacity: 0, scale: 0.98 },
   visible: {
     y: 0,
     opacity: 1,
     scale: 1,
-    transition: { duration: 0.6, ease: 'easeOut' },
+    transition: { duration: 0.5, ease: 'easeOut' },
   },
 };
 
-// For the gallery transition (fade + subtle scale)
 const galleryVariants = {
-    initial: { opacity: 0, y: 20 },
-    animate: { opacity: 1, y: 0, transition: { duration: 0.5, ease: 'easeInOut' } },
-    exit: { opacity: 0, y: -20, transition: { duration: 0.3, ease: 'easeInOut' } },
+    initial: { opacity: 0, y: 15 },
+    animate: { opacity: 1, y: 0, transition: { duration: 0.4, ease: 'easeInOut' } },
+    exit: { opacity: 0, y: -15, transition: { duration: 0.3, ease: 'easeInOut' } },
 };
 
+// ✅ Reusable AwardCard Component
+const AwardCard = ({ src, alt, onClick, layoutId }) => (
+  <motion.div
+    variants={itemVariants}
+    whileHover={{ y: -6 }}
+    className="group bg-white rounded-lg overflow-hidden shadow-md hover:shadow-xl transition-all duration-300 border border-gray-200 cursor-pointer"
+    onClick={onClick}
+  >
+    {/* ✅ Consistent Image Sizing using aspect-ratio for a gallery look */}
+    <div className="aspect-[4/3] overflow-hidden">
+      <motion.img
+        src={src}
+        alt={alt}
+        className="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500 ease-out"
+        layoutId={layoutId}
+      />
+    </div>
+  </motion.div>
+);
 
 const Announcements = () => {
-  // State to manage the active tab ('sb' or 'student')
   const [activeTab, setActiveTab] = useState('sb');
-  // State for the lightbox modal
   const [selectedImg, setSelectedImg] = useState(null);
 
   const currentImages = activeTab === 'sb' ? sbImages : studentImages;
   const gridColsClass = activeTab === 'sb' ? 'lg:grid-cols-4' : 'lg:grid-cols-3 xl:grid-cols-4';
 
   return (
-    <div className="relative py-24 px-6 md:px-20 lg:px-32 bg-[#e9f1fb] text-gray-900 overflow-hidden">
+    // ✅ Professional Color Palette & Typography
+    <div className="relative py-24 px-6 md:px-12 lg:px-24 bg-gray-50 text-gray-900 overflow-hidden font-sans">
       
-      {/* <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_30%,rgba(0,102,204,0.07),transparent_60%)] pointer-events-none"></div> */}
-
       {/* --- Section Header --- */}
-      <div className="text-center mb-16 relative z-10">
-  <motion.h2
-    className="text-4xl sm:text-5xl md:text-6xl font-extrabold text-gray-800 inline-block relative tracking-tight"
-    initial={{ opacity: 0, y: -20 }}
-    whileInView={{ opacity: 1, y: 0 }}
-    transition={{ duration: 0.8 }}
-    viewport={{ once: true }}
-  >
-    Our <span className="text-blue-700">Announcements</span>
-    {/* ✅ Responsive underline */}
-    <motion.div
-      className="absolute bottom-[-8px] left-0 w-full h-[3px] bg-blue-700 rounded-full origin-left"
-      initial={{ scaleX: 0 }}
-      whileInView={{ scaleX: 1 }}
-      transition={{ duration: 0.9, ease: "easeInOut" }}
-      viewport={{ once: true, amount: 0.8 }}
-    />
-  </motion.h2>
-
-  <p className="text-gray-600 mt-6 max-w-2xl mx-auto text-lg">
-    Celebrating the collective milestones of our Student Branch and the outstanding achievements of our individual members.
-  </p>
-</div>
+      <div className="text-center mb-16 max-w-4xl mx-auto">
+        <motion.h2
+          className="text-4xl md:text-5xl font-extrabold text-gray-900 inline-block relative tracking-tight pb-3"
+          initial={{ opacity: 0, y: -20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.7 }}
+          viewport={{ once: true }}
+        >
+          Our <span className="text-ieee-blue">Achievements</span>
+          {/* ✅ Polished UI Details: Subtle, centered underline */}
+          <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-24 h-1 bg-ieee-blue rounded-full"></span>
+        </motion.h2>
+        <motion.p
+          className="text-gray-600 mt-6 text-base md:text-lg"
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          transition={{ duration: 0.7, delay: 0.2 }}
+          viewport={{ once: true }}
+        >
+          Celebrating the collective milestones of our Student Branch and the outstanding achievements of our individual members.
+        </motion.p>
+      </div>
 
       {/* --- Animated Tab Switcher --- */}
-      <div className="flex justify-center mb-16 relative z-10">
-        <div className="flex space-x-2 bg-blue-100/70 p-1.5 rounded-full">
+      <div className="flex justify-center mb-16">
+        <div className="flex space-x-2 bg-gray-200 p-1.5 rounded-full">
           {['sb', 'student'].map((tab) => (
             <button
               key={tab}
               onClick={() => setActiveTab(tab)}
-              className={`relative px-6 py-2.5 text-lg font-semibold rounded-full transition-colors duration-300 ${
-                activeTab === tab ? 'text-white' : 'text-blue-800 hover:bg-white/60'
+              className={`relative px-5 py-2 text-base font-semibold rounded-full transition-colors duration-300 md:px-6 md:text-lg ${
+                activeTab === tab ? 'text-white' : 'text-ieee-blue hover:bg-white/60'
               }`}
             >
               {activeTab === tab && (
                 <motion.div
                   layoutId="activePill"
-                  className="absolute inset-0 bg-blue-700 rounded-full"
+                  className="absolute inset-0 bg-ieee-blue rounded-full"
                   transition={{ type: 'spring', stiffness: 250, damping: 25 }}
                 />
               )}
@@ -118,42 +129,32 @@ const Announcements = () => {
       {/* --- Galleries with Transition Animation --- */}
       <AnimatePresence mode="wait">
         <motion.div
-            key={activeTab} // Crucial for AnimatePresence to detect changes
+            key={activeTab}
             variants={galleryVariants}
             initial="initial"
             animate="animate"
             exit="exit"
         >
           <motion.div
-            className={`grid grid-cols-1 sm:grid-cols-2 ${gridColsClass} gap-12 relative z-10`}
+            className={`grid grid-cols-1 sm:grid-cols-2 ${gridColsClass} gap-8 max-w-7xl mx-auto`}
             variants={containerVariants}
             initial="hidden"
-            animate="visible" // Use animate instead of whileInView for tab changes
+            animate="visible"
           >
             {currentImages.map((src, idx) => (
-              <motion.div
-                key={src} // Use image source as key for better re-rendering
-                variants={itemVariants}
-                whileHover={{ y: -8, scale: 1.02 }}
-                className="group bg-white/90 backdrop-blur-sm border border-gray-200 rounded-2xl shadow-md transition-all duration-300 hover:shadow-2xl hover:border-blue-600/60 cursor-pointer overflow-hidden"
+              <AwardCard
+                key={src}
+                src={src}
+                alt={`${activeTab === 'sb' ? 'SB Achievement' : 'Student Award'} ${idx + 1}`}
                 onClick={() => setSelectedImg(src)}
-              >
-                <div className="overflow-hidden h-64 relative">
-                  <motion.img
-                    src={src}
-                    alt={`${activeTab === 'sb' ? 'SB Achievement' : 'Student Award'} ${idx + 1}`}
-                    className="w-full h-full object-cover transform group-hover:scale-110 transition-all duration-700 ease-out"
-                    layoutId={`image-${src}`} // For potential shared layout animations
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-                </div>
-              </motion.div>
+                layoutId={`image-${src}`}
+              />
             ))}
           </motion.div>
         </motion.div>
       </AnimatePresence>
 
-      {/* --- Lightbox Modal (no changes needed here) --- */}
+      {/* --- Lightbox Modal --- */}
       <AnimatePresence>
         {selectedImg && (
           <motion.div
@@ -162,15 +163,13 @@ const Announcements = () => {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
+            transition={{ duration: 0.3 }}
           >
             <motion.img
+              layoutId={`image-${selectedImg}`}
               src={selectedImg}
               alt="Enlarged achievement"
               className='max-w-full max-h-[90vh] object-contain rounded-lg shadow-2xl'
-              initial={{ scale: 0.8, y: 50 }}
-              animate={{ scale: 1, y: 0 }}
-              exit={{ scale: 0.8, y: 50 }}
-              transition={{ type: 'spring', stiffness: 200, damping: 25 }}
               onClick={(e) => e.stopPropagation()}
             />
           </motion.div>

@@ -16,6 +16,7 @@ import Profile from './components/Profile';
 import EventDetail from './components/EventDetails';
 import Newsletters from './components/Newsletters';
 import Announcements from './components/Announcements';
+import IEEEMembership from './components/IEEEMembership';
 
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -24,6 +25,7 @@ const Home = () => (
   <>
     <Header />
     <About />
+    <IEEEMembership/>
     <Societies />
     <Announcements />
     <Newsletters />

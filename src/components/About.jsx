@@ -1,29 +1,29 @@
 import React, { useEffect, useRef } from 'react';
-import { assets } from '../assets/assets';
 import { motion, useInView, animate } from "framer-motion";
+import { Link } from 'react-router-dom';
 
 // --- ANIMATION VARIANTS ---
 const containerVariants = {
   hidden: { opacity: 0 },
   visible: {
     opacity: 1,
-    transition: { staggerChildren: 0.3, delayChildren: 0.2 },
+    transition: { staggerChildren: 0.15, delayChildren: 0.2 },
   },
 };
 
 const itemVariants = {
-  hidden: { opacity: 0, y: 30 },
+  hidden: { opacity: 0, y: 20 },
   visible: {
     opacity: 1,
     y: 0,
-    transition: { duration: 0.8, ease: 'easeOut' },
+    transition: { duration: 0.7, ease: 'easeOut' },
   },
 };
 
-// --- NEW COMPONENT FOR ANIMATED COUNTING ---
+// --- Animated Counter Component ---
 const AnimatedCounter = ({ to }) => {
     const ref = useRef(null);
-    const isInView = useInView(ref, { once: true, margin: "-100px" });
+    const isInView = useInView(ref, { once: true, margin: "-50px" });
     const value = parseInt(to, 10);
     const suffix = to.includes('+') ? '+' : '';
 
@@ -31,7 +31,7 @@ const AnimatedCounter = ({ to }) => {
         if (isInView && ref.current) {
             const node = ref.current;
             const controls = animate(0, value, {
-                duration: 2,
+                duration: 2.5,
                 ease: "easeOut",
                 onUpdate(latest) {
                     node.textContent = Math.round(latest) + suffix;
@@ -44,89 +44,88 @@ const AnimatedCounter = ({ to }) => {
     return <span ref={ref}>0</span>;
 };
 
+// --- Reusable Stat Item Component ---
+const StatItem = ({ count, label }) => (
+    <div className="text-center">
+        <p className='text-4xl lg:text-5xl font-extrabold text-cyan-400'>
+            <AnimatedCounter to={count} />
+        </p>
+        <p className='text-gray-300 text-sm mt-1'>{label}</p>
+    </div>
+);
 
 const About = () => {
   return (
     <section
-      id='About'
-      className='relative z-10 py-24 px-6 md:px-20 lg:px-32'
+      id='about'
+      className='relative py-24 px-6 md:px-12 lg:px-24 text-gray-900 overflow-hidden font-sans'
     >
-      {/* 1. UPDATED: Switched to a dark-themed glassmorphism card */}
+      {/* Main Content Card - Now contains the entire section logic */}
       <motion.div 
-        className='bg-gray-900/70 backdrop-blur-lg border border-white/10 p-8 md:p-12 rounded-2xl shadow-2xl container mx-auto'
-        initial={{ opacity: 0, y: 50 }}
+        className='bg-gray-900/90 backdrop-blur-sm border border-white/10 p-8 md:p-12 rounded-2xl shadow-2xl max-w-7xl mx-auto'
+        initial={{ opacity: 0, y: 40 }}
         whileInView={{ opacity: 1, y: 0 }}
-        transition={{ duration: 1 }}
+        transition={{ duration: 0.8, ease: 'easeOut' }}
         viewport={{ once: true }}
       >
-        {/* 2. UPDATED: Header text and accent colors adjusted for dark background */}
-        <div className="text-center mb-16">
-  <motion.h2
-    className="text-5xl md:text-6xl font-extrabold text-white inline-block relative tracking-tight"
-    initial={{ opacity: 0, y: -20 }}
-    whileInView={{ opacity: 1, y: 0 }}
-    transition={{ duration: 0.8 }}
-    viewport={{ once: true }}
-  >
-    About <span className="text-blue-500">RSET SB</span>
-    {/* ✅ Responsive underline */}
-    <motion.div
-      className="absolute left-0 bottom-[-8px] h-[3px] bg-blue-500 w-full rounded-full origin-left"
-      initial={{ scaleX: 0 }}
-      whileInView={{ scaleX: 1 }}
-      transition={{ duration: 0.9, ease: "easeInOut" }}
-      viewport={{ once: true, amount: 0.8 }}
-    />
-  </motion.h2>
-</div>
-
+        {/* Section Header - MOVED INSIDE THE CARD */}
+        <div className="text-center mb-16 max-w-4xl mx-auto">
+            <motion.h2
+            className="text-4xl md:text-5xl font-extrabold text-white inline-block relative tracking-tight pb-3"
+            initial={{ opacity: 0, y: -20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7 }}
+            viewport={{ once: true }}
+            >
+            About <span className="text-cyan-400">Our Student Branch</span>
+            <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-24 h-1 bg-cyan-400 rounded-full"></span>
+            </motion.h2>
+        </div>
 
         <motion.div 
-          className='flex flex-col lg:flex-row items-center gap-12 lg:gap-16'
+          className='flex flex-col lg:flex-row items-center gap-10 lg:gap-16'
           variants={containerVariants}
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true }}
         >
-          <motion.img
-            src={assets.brand_img}
-            alt="RSET IEEE"
-            className="w-full max-w-md lg:max-w-lg rounded-xl shadow-lg mx-auto object-contain"
-            variants={itemVariants}
-          />
+          {/* Image Section */}
+          <motion.div variants={itemVariants} className="w-full lg:w-1/2 flex-shrink-0">
+            <img
+              src={'src/assets/title.jpeg'} 
+              alt="IEEE RSET Student Branch"
+              className="w-full h-auto rounded-xl shadow-lg object-cover"
+            />
+          </motion.div>
 
-          <motion.div className='flex flex-col justify-center' variants={itemVariants}>
-            <div className='grid grid-cols-2 gap-8 mb-8 text-center sm:text-left'>
+          {/* Text and Stats Section */}
+          <motion.div className='flex flex-col justify-center lg:w-1/2' variants={itemVariants}>
+            <div className='grid grid-cols-2 gap-8 mb-8'>
               {[
                 { count: "10+", label: "Years of Excellence" },
                 { count: "50+", label: "Workshops Conducted" },
                 { count: "100+", label: "Active Members" },
                 { count: "20+", label: "Awards Won" },
-              ].map((item, index) => (
-                <div key={index}>
-                  {/* 3. NEW: Replaced static number with the AnimatedCounter */}
-                  <p className='text-4xl lg:text-5xl font-extrabold text-blue-400'>
-                    <AnimatedCounter to={item.count} />
-                  </p>
-                  <p className='text-gray-300 text-sm'>{item.label}</p>
-                </div>
+              ].map((item) => (
+                <StatItem key={item.label} count={item.count} label={item.label} />
               ))}
             </div>
 
-            {/* 4. UPDATED: Text color for dark background */}
-            <p className='text-gray-300 leading-relaxed max-w-2xl text-left'>
-              The IEEE Student Branch of Rajagiri School of Engineering and Technology is a vibrant community of innovators, leaders, and problem-solvers. We are the product of a combined effort from qualified faculty and passionate students, dedicated to advancing technology for the benefit of humanity.
+            <p className='text-gray-300 leading-relaxed text-left'>
+              The IEEE Student Branch of Rajagiri School of Engineering and Technology is a vibrant community of innovators, leaders, and problem-solvers. We are dedicated to advancing technology for the benefit of humanity.
               <br /><br />
               Through workshops, competitions, and technical talks, we provide a platform for students to develop their skills, network with professionals, and turn their creative ideas into reality.
             </p>
-
-            <motion.button 
-              className='mt-8 bg-blue-600 text-white px-8 py-3 rounded-lg self-start font-semibold shadow-lg hover:bg-blue-700 transition'
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-            >
-              Learn More
-            </motion.button>
+{/* 
+            <Link to="/about">
+              <motion.button 
+                className='mt-8 bg-cyan-500 text-gray-900 font-bold px-7 py-3 rounded-lg self-start shadow-lg hover:bg-cyan-600 transition'
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                Learn More
+              </motion.button>
+            </Link> */}
           </motion.div>
         </motion.div>
       </motion.div>
@@ -135,3 +134,4 @@ const About = () => {
 };
 
 export default About;
+
