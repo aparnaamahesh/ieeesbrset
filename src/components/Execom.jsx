@@ -62,7 +62,7 @@ const societies = {
     { name: "Ms. Anu Maria Joykutty", position: "Chapter Advisor", img: "Ms. Anu Maria Joykutty.png", link: "anu" },
     { name: "Navaneeth K.B", position: "Chair", img: "Navaneeth K.B.jpg", link: "navaneeth" },
     { name: "Richard Sabu", position: "Vice Chair", img: "Richard 1.jpg", link: "richard" },
-    { name: "Nihala Nizamudeen", position: "Secretary", img: "NIHALA NIZAMUDEEN.png", link: "nihala" },
+    { name: "Nihala Nizamudeen", position: "Secretary", img: "NIHALA NIZAMUDEEN .jpg", link: "nihala" },
     { name: "Punya D", position: "Treasurer", img: "Punya D.JPG", link: "punya" },
   ],
   IAS: [
