@@ -56,13 +56,13 @@ const societies = {
     { name: "Abhinav s", position: "Design Lead", img: "Sabharish P V.jpg", link: "abhinav" },
     { name: "Sabharish PV", position: "Design Lead", img: "Sabharish P V.jpg", link: "sabharish" },
     { name: "Devamanas S", position: "Media Lead", img: "Devamanas S.JPG", link: "devamanas" },
-    { name: "Abhishek lype", position: "Utility Lead", img: "Abhishek.jpg", link: "abhishek" },
+    
   ],
   CS: [
     { name: "Ms. Anu Maria Joykutty", position: "Chapter Advisor", img: "Ms. Anu Maria Joykutty.png", link: "anu" },
     { name: "Navaneeth K.B", position: "Chair", img: "Navaneeth K.B.jpg", link: "navaneeth" },
     { name: "Richard Sabu", position: "Vice Chair", img: "Richard 1.jpg", link: "richard" },
-    { name: "Nihala Nizamudeen", position: "Secretary", img: "NIHALA NIZAMUDEEN .HEIC", link: "nihala" },
+    { name: "Nihala Nizamudeen", position: "Secretary", img: "Nihala.jpg", link: "nihala" },
     { name: "Punya D", position: "Treasurer", img: "Punya D.JPG", link: "punya" },
   ],
   IAS: [
