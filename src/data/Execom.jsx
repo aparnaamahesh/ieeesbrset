@@ -12,7 +12,7 @@ export const societyNames = {
 export const societies = {
   SB: [
     { name: "Dr. Elizabeth Rita Samuel", position: "Student Branch Counselor", img: "Dr. Elizabeth Rita Samuel.png", link: "elizabeth" },
-    { name: "Pooja S Nair", position: "IEEE Student Branch Chair", img: "public/Execom 2026/POOJA S NAIR - Chair.JPG", link: "pooja" },
+    { name: "Pooja S Nair", position: "IEEE Student Branch Chair", img: "POOJA S NAIR - Chair.JPG", link: "pooja" },
     { name: "Alias Eldo", position: "IEEE Student Branch Vice Chair", img: "AliasEldo.jpg", link: "alias" },
     { name: "Amelin Alexander Rathappillil", position: "Secretary", img: "Amelin.jpg", link: "amelin" },
     { name: "Athira Ajay", position: "Treasurer", img: "athira ajay.jpg", link: "athira" },
