@@ -22,7 +22,7 @@ export const societies = {
     { name: "Athulya Aravindhakshan", position: "Membership Development Coordinator", img: "athulyaaravindhakshan", link: "athulya" },
     { name: "Emmanuel Babu", position: "Membership Development Coordinator", img: "emmanuelbabu", link: "emmanuel" },
     { name: "Sharika B Menon", position: "Membership Development Coordinator", img: "sharikabmenon", link: "Sharika" },
-    { name: "Aparna Mahesh", position: "Webmaster", img: "aparnamahesh", link: "aparna" },
+    { name: "Aparna Mahesh", position: "Webmaster", img: "aparnamahesh.jpg", link: "aparna" },
     { name: "Anandu D", position: "Webmaster", img: "anandud", link: "anandu" },
     { name: "Benita George", position: "LINK Representative", img: "benitageorge", link: "benita" },
     { name: "Nikhil S Nair", position: "Design Lead", img: "nikhilsnair", link: "nikhil" },
